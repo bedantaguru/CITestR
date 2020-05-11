@@ -64,6 +64,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          try(system("R CMD javareconf"))
+          remotes::install_cran("rJava", type = "both")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
