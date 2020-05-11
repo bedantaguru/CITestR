@@ -18,11 +18,11 @@ os:
   - linux
   - osx
 
-matrix:
-  exclude:
-    -
-      os: osx
-      r: oldrel
-    -
-      os: osx
-      r: devel
+#matrix:
+#  exclude:
+#    -
+#      os: osx
+#      r: oldrel
+#    -
+#      os: osx
+#      r: devel
