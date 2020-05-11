@@ -1,0 +1,11 @@
+^CITestR\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^cran-comments\.md$
+^Sys$
+^\.travis\.yml$
+^appveyor\.yml$
+^\.circleci$
+^\.circleci/config\.yml$
+^\.github$
