@@ -18,11 +18,9 @@ os:
   - linux
   - osx
 
-#matrix:
-#  exclude:
-#    -
-#      os: osx
-#      r: oldrel
-#    -
-#      os: osx
-#      r: devel
+# this needs to exclude as https://cloud.r-project.org/bin/macosx/contrib/4.1 is not present
+matrix:
+  exclude:
+    -
+      os: osx
+      r: devel
