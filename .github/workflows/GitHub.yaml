@@ -64,7 +64,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          try(system("R CMD javareconf"))
+          try(system("sudo R CMD javareconf"))
           remotes::install_cran("rJava", type = ifelse(tolower(Sys.info()[["sysname"]])=="linux","source","both"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")

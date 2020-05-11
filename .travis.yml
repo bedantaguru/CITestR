@@ -4,6 +4,7 @@ language: R
 cache: packages
 
 
+# temp fix for ps
 before_install:
  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then R -e "install.packages(c('ps'), repos = 'http://cran.rstudio.com/')"  ; fi
 
