@@ -13,6 +13,7 @@ usethis::use_appveyor()
 
 usethis::use_circleci()
 usethis::use_github_action_check_standard()
+usethis::use_github_actions_badge(name = "GitHub")
 
 usethis::use_r("simple")
 usethis::use_test()
