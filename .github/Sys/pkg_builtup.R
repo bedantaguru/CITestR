@@ -8,7 +8,7 @@ usethis::use_git()
 usethis::use_github_links()
 
 
-usethis::use_travis()
+usethis::use_travis(ext = "org")
 usethis::use_appveyor()
 
 usethis::use_circleci()
