@@ -6,10 +6,10 @@ on:
     branches:
       - master
 
-name: R-CMD-check
+name: GitHub
 
 jobs:
-  R-CMD-check:
+  GitHub:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
