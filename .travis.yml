@@ -2,3 +2,24 @@
 
 language: R
 cache: packages
+
+
+r:
+  - oldrel
+  - release
+  - devel
+
+warnings_are_errors: true
+
+os:
+  - linux
+  - osx
+
+matrix:
+  exclude:
+    -
+      os: osx
+      r: oldrel
+    -
+      os: osx
+      r: devel

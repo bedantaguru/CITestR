@@ -7,8 +7,6 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/CITestR)](https://CRAN.R-project.org/package=CITestR)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/bedantaguru/CITestR?branch=master&svg=true)](https://ci.appveyor.com/project/bedantaguru/CITestR)
 [![CircleCI build

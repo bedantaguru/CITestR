@@ -16,3 +16,8 @@ usethis::use_github_action_check_standard()
 
 usethis::use_r("simple")
 usethis::use_test()
+
+
+# test for tidycells
+
+usethis::use_package("shinytest", type = "Suggests")
