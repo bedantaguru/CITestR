@@ -15,7 +15,7 @@ cache:
 
 environment:
   NOT_CRAN: true
-  USE_RTOOLS: true
+
   # env vars that may need to be set, at least temporarily, from time to time
   # see https://github.com/krlmlr/r-appveyor#readme for details
 
@@ -31,6 +31,7 @@ environment:
     R_ARCH: x64
 
   - R_VERSION: devel
+    USE_RTOOLS: true
 
   - R_VERSION: patched
 
