@@ -484,7 +484,9 @@ er <- try({writeLines(c(dm$fn, "\n\n",
 "/root/project/CITestR.Rcheck/debugIG/463")
 })
 
-writeLines(as.character(er), "/root/project/CITestR.Rcheck/debugIG/hope")
+writeLines(as.character(try(tce$is_available("tabulizer"))), "/root/project/CITestR.Rcheck/debugIG/hope")
+
+writeLines(as.character(try(tce$read_pdf_from_tabulizer(dm$fn[4]))), "/root/project/CITestR.Rcheck/debugIG/hope2")
 
 
 try(dcomps <- dm$fn %>% purrr::map(read_cells))
@@ -513,7 +515,7 @@ dcomps_sel[[1]]
 
 writeLines("ok", "/root/project/CITestR.Rcheck/debugIG/486")
 
-stop("Stop this please! No more IG can take!")
+#stop("Stop this please! No more IG can take!")
 
 ```
 
