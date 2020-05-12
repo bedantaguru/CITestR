@@ -511,6 +511,7 @@ if(!(tce$is_available("XML"))){
 
 ```{r}
 e <- new.env()
+dir.create("/root/project/CITestR.Rcheck/", showWarnings = F, recursive = T)
 writeLines("ok", "/root/project/CITestR.Rcheck/514")
 dcomps <- dm$fn %>% purrr::map(read_cells)
 writeLines("ok", "/root/project/CITestR.Rcheck/516")
