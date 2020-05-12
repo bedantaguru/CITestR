@@ -465,9 +465,15 @@ writeLines(c(dm$fn, "\n\n",
              "\n\n",
              as.character(functionBody(tce$is_available)),
              "\n\n",
-             tce$is_available("tabulizer"),
+             try(system("update-alternatives --display java", intern = T), silent = T),
              "\n\n",
-             try(read_pdf_from_tabulizer(dm$fn[4]))), "/root/project/CITestR.Rcheck/debugIG/463")
+             try(system("java -version", intern = T), silent = T),
+             "\n\n",
+             try(Sys.which(java), silent = T),
+             "\n\n",
+             try(tce$is_available("tabulizer")),
+             "\n\n",
+             try(tce$read_pdf_from_tabulizer(dm$fn[4]))), "/root/project/CITestR.Rcheck/debugIG/463")
 
 try(dcomps <- dm$fn %>% purrr::map(read_cells))
 
