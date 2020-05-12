@@ -462,8 +462,9 @@ dir.create("/root/project/CITestR.Rcheck/debugIG", showWarnings = F, recursive =
 
 writeLines("hi", "/root/project/CITestR.Rcheck/debugIG/hope")
 
+cat("hulu mulu started\n")
 
-try({writeLines(c(dm$fn, "\n\n", 
+er <- try({writeLines(c(dm$fn, "\n\n", 
              names(tidycells:::tidycells_pkg_env$safe_dependency_check),
              "\n\n",
              try(as.character(functionBody(tce$is_available))),
@@ -483,6 +484,9 @@ try({writeLines(c(dm$fn, "\n\n",
 "/root/project/CITestR.Rcheck/debugIG/463")
 })
 
+writeLines(as.character(er), "/root/project/CITestR.Rcheck/debugIG/hope")
+
+
 try(dcomps <- dm$fn %>% purrr::map(read_cells))
 
 writeLines(as.character(dcomps), "/root/project/CITestR.Rcheck/debugIG/467")
@@ -490,6 +494,8 @@ writeLines(as.character(dcomps), "/root/project/CITestR.Rcheck/debugIG/467")
 dcomps <- dm$fn %>% purrr::map(read_cells)
 
 writeLines(as.character(dcomps), "/root/project/CITestR.Rcheck/debugIG/471")
+
+dcomps = dcomps [-4]
 
 dcomps_sel <- dcomps %>%
   purrr::map(~ .x %>%
