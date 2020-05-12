@@ -18,15 +18,15 @@ vignette: >
   </style>
   
   ```{r, include = FALSE}
-knitr::opts_chunk$set(
-collapse = TRUE,
-comment = "#>"
-)
-```
-
-```{r setup, include = FALSE}
-if(!requireNamespace("remotes", quietly = F)){
-  install.packages("remotes", repos = "https://cran.rstudio.com/")
+  knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+  )
+  ```
+  
+  ```{r setup, include = FALSE}
+  if(!requireNamespace("remotes", quietly = F)){
+install.packages("remotes", repos = "https://cran.rstudio.com/")
 }
 
 remotes::install_github("r-rudra/tidycells")
@@ -429,59 +429,6 @@ dm$fn %>% basename()
 ```
 
 ```{r, echo=FALSE, include=FALSE}
-
-###############
-quick_fix<- function(){
-  
-assign("safe_dependency_check", list(
-  xlsx = function() {
-    chk <- F
-    try(
-      {
-        if (is_xlsx_ok(no_pkg_check = T)) {
-          sample_xls <- system.file("extdata", "messy", "xls.pdf", package = "tidycells", mustWork = TRUE)
-          x <- read_xls_from_xlsx(sample_xls, no_pkg_check = T)
-          if (is.data.frame(x[[1]])) {
-            if (nrow(x[[1]]) > 0) {
-              chk <- T
-            }
-          }
-        }
-      },
-      silent = T
-    )
-    chk
-  },
-  tabulizer = function() {
-    chk <- F
-    try(
-      {
-        if (requireNamespace("tabulizer", quietly = T)) {
-          sample_pdf <- system.file("extdata", "messy", "pdf.docx", package = "tidycells", mustWork = TRUE)
-          x <- read_pdf_from_tabulizer(sample_pdf, no_pkg_check = T)
-          if (is.matrix(x[[1]])) {
-            if (nrow(x[[1]]) > 0) {
-              chk <- T
-            }
-          }
-        }
-      },
-      silent = T
-    )
-    chk
-  }
-), envir = tidycells_pkg_env)
-
-
-  
-}
-
-environment(quick_fix) <- environment(read_cells)
-
-quick_fix()
-
-
-###############
 # filter based on file-type
 dm <- dm %>%
   dplyr::mutate(original = dm$fn %>%
@@ -510,24 +457,36 @@ if(!(tce$is_available("XML"))){
 ```
 
 ```{r}
-e <- new.env()
-dir.create("/root/project/CITestR.Rcheck/", showWarnings = F, recursive = T); e$dm <- dm; saveRDS(e, "/root/project/CITestR.Rcheck/cloud_picker_rds")
 
-dcomps <- dm$fn %>% purrr::map(~try(read_cells(.x)))
-u <- try(dcomps <- dm$fn %>% purrr::map(read_cells))
-e$dcomps <- dcomps; e$dm <- dm; e$u <- u; saveRDS(e, "/root/project/CITestR.Rcheck/cloud_picker_rds")
+dir.create("/root/project/CITestR.Rcheck/debugIG", showWarnings = F, recursive = T)
+
+writeLines(dm$fn, "/root/project/CITestR.Rcheck/debugIG/463")
+
+try(dcomps <- dm$fn %>% purrr::map(read_cells))
+
+writeLines(as.character(dcomps), "/root/project/CITestR.Rcheck/debugIG/467")
+
 dcomps <- dm$fn %>% purrr::map(read_cells)
-writeLines("ok", "/root/project/CITestR.Rcheck/line_chk_after_this")
+
+writeLines(as.character(dcomps), "/root/project/CITestR.Rcheck/debugIG/471")
+
 dcomps_sel <- dcomps %>%
   purrr::map(~ .x %>%
                dplyr::select(value, collated_1, collated_2))
+
+writeLines(as.character(dcomps_sel), "/root/project/CITestR.Rcheck/debugIG/477")
 # all of them are same [intentionaly made. but the file types are totally different]
 dcomps_sel %>% 
   purrr::map_lgl(~identical(.x, dcomps_sel[[1]])) %>% 
   all()
+
+writeLines("ok", "/root/project/CITestR.Rcheck/debugIG/483")
 # check one sample
 dcomps_sel[[1]]
-writeLines("ok", "/root/project/CITestR.Rcheck/line_chk_last")
+
+writeLines("ok", "/root/project/CITestR.Rcheck/debugIG/486")
+
+stop("Stop this please! No more IG can take!")
 
 ```
 
