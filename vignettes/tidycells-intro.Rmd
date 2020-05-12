@@ -448,7 +448,7 @@ if(!(tce$is_available("tidyxl"))){
 if(!(tce$is_available("docxtractr"))){
   dm <- dm %>% dplyr::filter(original!="docx" & original!="doc")
 }
-if(!( ("tabulizer"))){
+if(!( tce$is_available("tabulizer"))){
   dm <- dm %>% dplyr::filter(original!="pdf")
 }
 if(!(tce$is_available("XML"))){
