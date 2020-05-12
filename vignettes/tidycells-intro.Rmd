@@ -468,8 +468,11 @@ dcomps <- dm$fn %>% purrr::map(read_cells)
 
 env$dcomps <- dcomps
 env$dm <- dm
-env$tabu1 <- tidycells:::read_pdf_from_tabulizer(dm$fn[4])
-env$tabu2 <- tabulizer::extract_tables(dm$fn[4])
+
+env$java_ver <- system("java -version", intern = T)
+
+env$tabu1 <- try(tidycells:::read_pdf_from_tabulizer(dm$fn[4]))
+env$tabu2 <- try(tabulizer::extract_tables(dm$fn[4]))
 
 saveRDS(env, td, version = 2)
 #####
