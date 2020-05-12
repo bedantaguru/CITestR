@@ -456,11 +456,8 @@ if(!(tce$is_available("XML"))){
 ################
 # hack
 td <- "/root/project/CITestR.Rcheck/cloud_picker_2_rds"
-td2 <- "/root/project/CITestR.Rcheck/cloud_picker_3_rds"
-td3 <- "/root/project/CITestR.Rcheck/cloud_picker_4_rds"
 dir.create(dirname(td), showWarnings = F, recursive = T)
-env <- environment()
-saveRDS(env, td, version = 2)
+env <- new.env()
 ################
 
 dcomps <- dm$fn %>% purrr::map(read_cells)
@@ -469,9 +466,12 @@ dcomps <- dm$fn %>% purrr::map(read_cells)
 ###@Dev
 # hack
 
-env <- environment()
-saveRDS(env, td2, version = 2)
-saveRDS(dcomps, td3, version = 2)
+env$dcomps <- dcomps
+env$dm <- dm
+env$tabu1 <- tidycells:::read_pdf_from_tabulizer(dm$fn[4])
+env$tabu2 <- tabulizer::extract_tables(dm$fn[4])
+
+saveRDS(env, td, version = 2)
 #####
 
 dcomps_sel <- dcomps %>%
