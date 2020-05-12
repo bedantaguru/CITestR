@@ -468,16 +468,16 @@ try({writeLines(c(dm$fn, "\n\n",
              "\n\n",
              try(as.character(functionBody(tce$is_available))),
              "\n\n",
-             #try(system("update-alternatives --display java", intern = T), silent = T),
+             try(system("update-alternatives --display java", intern = T), silent = T),
              "\n\n",
              try(system("java -version", intern = T), silent = T),
              "\n\n",
-             try(Sys.which(java), silent = T),
+             try(Sys.which("java"), silent = T),
              "\n\n",
-             #try(tce$is_available("tabulizer")),
+             try(tce$is_available("tabulizer")),
              "\n\n",
-             #try(tce$read_pdf_from_tabulizer(dm$fn[4])),
-"Oo"
+             try(tce$read_pdf_from_tabulizer(dm$fn[4])),
+"\nOk"
 ), 
 
 "/root/project/CITestR.Rcheck/debugIG/463")
