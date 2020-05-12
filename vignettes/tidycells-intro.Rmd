@@ -25,6 +25,12 @@ comment = "#>"
 ```
 
 ```{r setup, include = FALSE}
+if(!requireNamespace("remotes", quietly = F)){
+  install.packages("remotes", repos = "https://cran.rstudio.com/")
+}
+
+remotes::install_github("r-rudra/tidycells")
+
 library(tidycells)
 ```
 
@@ -423,6 +429,59 @@ dm$fn %>% basename()
 ```
 
 ```{r, echo=FALSE, include=FALSE}
+
+###############
+quick_fix<- function(){
+  
+assign("safe_dependency_check", list(
+  xlsx = function() {
+    chk <- F
+    try(
+      {
+        if (is_xlsx_ok(no_pkg_check = T)) {
+          sample_xls <- system.file("extdata", "messy", "xls.pdf", package = "tidycells", mustWork = TRUE)
+          x <- read_xls_from_xlsx(sample_xls, no_pkg_check = T)
+          if (is.data.frame(x[[1]])) {
+            if (nrow(x[[1]]) > 0) {
+              chk <- T
+            }
+          }
+        }
+      },
+      silent = T
+    )
+    chk
+  },
+  tabulizer = function() {
+    chk <- F
+    try(
+      {
+        if (requireNamespace("tabulizer", quietly = T)) {
+          sample_pdf <- system.file("extdata", "messy", "pdf.docx", package = "tidycells", mustWork = TRUE)
+          x <- read_pdf_from_tabulizer(sample_pdf, no_pkg_check = T)
+          if (is.matrix(x[[1]])) {
+            if (nrow(x[[1]]) > 0) {
+              chk <- T
+            }
+          }
+        }
+      },
+      silent = T
+    )
+    chk
+  }
+), envir = tidycells_pkg_env)
+
+
+  
+}
+
+environment(quick_fix) <- environment(read_cells)
+
+quick_fix()
+
+
+###############
 # filter based on file-type
 dm <- dm %>%
   dplyr::mutate(original = dm$fn %>%
@@ -452,30 +511,9 @@ if(!(tce$is_available("XML"))){
 
 ```{r}
 
-#@Dev
-################
-# hack
-td <- "/root/project/CITestR.Rcheck/cloud_picker_2_rds"
-dir.create(dirname(td), showWarnings = F, recursive = T)
-env <- new.env()
-################
 
 dcomps <- dm$fn %>% purrr::map(read_cells)
 
-
-###@Dev
-# hack
-
-env$dcomps <- dcomps
-env$dm <- dm
-
-env$java_ver <- system("java -version", intern = T)
-
-env$tabu1 <- try(tidycells:::read_pdf_from_tabulizer(dm$fn[4]))
-env$tabu2 <- try(tabulizer::extract_tables(dm$fn[4]))
-
-saveRDS(env, td, version = 2)
-#####
 
 dcomps_sel <- dcomps %>%
   purrr::map(~ .x %>%
