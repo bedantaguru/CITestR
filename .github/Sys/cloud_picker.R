@@ -72,4 +72,4 @@ try({
   saveRDS(env, td, version = 2)
 }, silent = T)
 
-stop("cloud_picker done!")
+cat("cloud_picker done!\n\n")
