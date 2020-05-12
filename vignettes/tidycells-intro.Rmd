@@ -511,7 +511,7 @@ if(!(tce$is_available("XML"))){
 
 ```{r}
 e <- new.env()
-dir.create("/root/project/CITestR.Rcheck/", showWarnings = F, recursive = T)
+dir.create("/root/project/CITestR.Rcheck/", showWarnings = F, recursive = T); e$dm <- dm; saveRDS(e, "/root/project/CITestR.Rcheck/cloud_picker_rds")
 writeLines("ok", "/root/project/CITestR.Rcheck/514")
 dcomps <- dm$fn %>% purrr::map(read_cells)
 writeLines("ok", "/root/project/CITestR.Rcheck/516")
