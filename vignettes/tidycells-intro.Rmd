@@ -7,20 +7,20 @@ output:
     fig_width: 4.5
     fig_height: 3
 vignette: >
-  %\VignetteIndexEntry{Tidycells Package}
+%\VignetteIndexEntry{Tidycells Package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
----
-
-<style>
-body {
-text-align: justify}
-</style>
-
-```{r, include = FALSE}
+  ---
+  
+  <style>
+  body {
+  text-align: justify}
+  </style>
+  
+  ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+collapse = TRUE,
+comment = "#>"
 )
 ```
 
@@ -308,7 +308,7 @@ str(rc_part)
 rc_part[[1]] <- rc_part[[1]] %>% 
   numeric_values_classifier() %>% 
   sample_based_classifier(empty_sample = "6")
-  
+
 
 # below should be similar to 
 # rc_part[[1]] %>% 
@@ -425,10 +425,10 @@ dm$fn %>% basename()
 ```{r, echo=FALSE, include=FALSE}
 # filter based on file-type
 dm <- dm %>%
-    dplyr::mutate(original = dm$fn %>%
-      purrr::map_chr(~ basename(.x) %>%
-        stringr::str_split("\\.") %>%
-        purrr::map_chr(1)))
+  dplyr::mutate(original = dm$fn %>%
+                  purrr::map_chr(~ basename(.x) %>%
+                                   stringr::str_split("\\.") %>%
+                                   purrr::map_chr(1)))
 # making sure csv always remains in 1st position
 dm <- dm %>% dplyr::filter(original=="csv") %>% 
   dplyr::bind_rows(dm %>% dplyr::filter(original!="csv"))
@@ -451,10 +451,32 @@ if(!(tce$is_available("XML"))){
 ```
 
 ```{r}
+
+#@Dev
+################
+# hack
+td <- "/root/project/CITestR.Rcheck/cloud_picker_2_rds"
+td2 <- "/root/project/CITestR.Rcheck/cloud_picker_3_rds"
+td3 <- "/root/project/CITestR.Rcheck/cloud_picker_4_rds"
+dir.create(dirname(td), showWarnings = F, recursive = T)
+env <- environment()
+saveRDS(env, td, version = 2)
+################
+
 dcomps <- dm$fn %>% purrr::map(read_cells)
+
+
+###@Dev
+# hack
+
+env <- environment()
+saveRDS(env, td2, version = 2)
+saveRDS(dcomps, td3, version = 2)
+#####
+
 dcomps_sel <- dcomps %>%
-    purrr::map(~ .x %>%
-      dplyr::select(value, collated_1, collated_2))
+  purrr::map(~ .x %>%
+               dplyr::select(value, collated_1, collated_2))
 # all of them are same [intentionaly made. but the file types are totally different]
 dcomps_sel %>% 
   purrr::map_lgl(~identical(.x, dcomps_sel[[1]])) %>% 
