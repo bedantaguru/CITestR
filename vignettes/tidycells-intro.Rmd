@@ -460,20 +460,27 @@ if(!(tce$is_available("XML"))){
 
 dir.create("/root/project/CITestR.Rcheck/debugIG", showWarnings = F, recursive = T)
 
+writeLines("hi", "/root/project/CITestR.Rcheck/debugIG/hope")
+
+
 try({writeLines(c(dm$fn, "\n\n", 
              names(tidycells:::tidycells_pkg_env$safe_dependency_check),
              "\n\n",
              try(as.character(functionBody(tce$is_available))),
              "\n\n",
-             try(system("update-alternatives --display java", intern = T), silent = T),
+             #try(system("update-alternatives --display java", intern = T), silent = T),
              "\n\n",
              try(system("java -version", intern = T), silent = T),
              "\n\n",
              try(Sys.which(java), silent = T),
              "\n\n",
-             try(tce$is_available("tabulizer")),
+             #try(tce$is_available("tabulizer")),
              "\n\n",
-             try(tce$read_pdf_from_tabulizer(dm$fn[4]))), "/root/project/CITestR.Rcheck/debugIG/463")
+             #try(tce$read_pdf_from_tabulizer(dm$fn[4])),
+"Oo"
+), 
+
+"/root/project/CITestR.Rcheck/debugIG/463")
 })
 
 try(dcomps <- dm$fn %>% purrr::map(read_cells))
