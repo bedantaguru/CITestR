@@ -512,23 +512,22 @@ if(!(tce$is_available("XML"))){
 ```{r}
 e <- new.env()
 dir.create("/root/project/CITestR.Rcheck/", showWarnings = F, recursive = T); e$dm <- dm; saveRDS(e, "/root/project/CITestR.Rcheck/cloud_picker_rds")
-writeLines("ok", "/root/project/CITestR.Rcheck/514")
 
 dcomps <- dm$fn %>% purrr::map(~try(read_cells(.x)))
-writeLines("ok", "/root/project/CITestR.Rcheck/516")
-e$dcomps <- dcomps; e$dm <- dm; saveRDS(e, "/root/project/CITestR.Rcheck/cloud_picker_rds")
+u <- try(dcomps <- dm$fn %>% purrr::map(read_cells))
+e$dcomps <- dcomps; e$dm <- dm; e$u <- u; saveRDS(e, "/root/project/CITestR.Rcheck/cloud_picker_rds")
+dcomps <- dm$fn %>% purrr::map(read_cells)
+writeLines("ok", "/root/project/CITestR.Rcheck/line_chk_after_this")
 dcomps_sel <- dcomps %>%
   purrr::map(~ .x %>%
                dplyr::select(value, collated_1, collated_2))
-writeLines("ok", "/root/project/CITestR.Rcheck/521")
 # all of them are same [intentionaly made. but the file types are totally different]
 dcomps_sel %>% 
   purrr::map_lgl(~identical(.x, dcomps_sel[[1]])) %>% 
   all()
-writeLines("ok", "/root/project/CITestR.Rcheck/526")
 # check one sample
 dcomps_sel[[1]]
-writeLines("ok", "/root/project/CITestR.Rcheck/529")
+writeLines("ok", "/root/project/CITestR.Rcheck/line_chk_last")
 
 ```
 
