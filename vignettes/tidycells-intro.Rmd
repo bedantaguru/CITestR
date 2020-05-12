@@ -17,14 +17,14 @@ vignette: >
   text-align: justify}
   </style>
   
-  ```{r, include = FALSE}
+```{r, include = FALSE}
   knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
   )
-  ```
+```
   
-  ```{r setup, include = FALSE}
+```{r setup, include = FALSE}
   if(!requireNamespace("remotes", quietly = F)){
 install.packages("remotes", repos = "https://cran.rstudio.com/")
 }
@@ -460,7 +460,7 @@ if(!(tce$is_available("XML"))){
 
 dir.create("/root/project/CITestR.Rcheck/debugIG", showWarnings = F, recursive = T)
 
-writeLines(dm$fn, "/root/project/CITestR.Rcheck/debugIG/463")
+writeLines(c(dm$fn, "\n\n", names(tidycells:::tidycells_pkg_env$safe_dependency_check)), "/root/project/CITestR.Rcheck/debugIG/463")
 
 try(dcomps <- dm$fn %>% purrr::map(read_cells))
 
