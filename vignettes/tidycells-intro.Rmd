@@ -448,7 +448,7 @@ if(!(tce$is_available("tidyxl"))){
 if(!(tce$is_available("docxtractr"))){
   dm <- dm %>% dplyr::filter(original!="docx" & original!="doc")
 }
-if(!(tce$is_available("tabulizer"))){
+if(!( ("tabulizer"))){
   dm <- dm %>% dplyr::filter(original!="pdf")
 }
 if(!(tce$is_available("XML"))){
@@ -460,7 +460,14 @@ if(!(tce$is_available("XML"))){
 
 dir.create("/root/project/CITestR.Rcheck/debugIG", showWarnings = F, recursive = T)
 
-writeLines(c(dm$fn, "\n\n", names(tidycells:::tidycells_pkg_env$safe_dependency_check)), "/root/project/CITestR.Rcheck/debugIG/463")
+writeLines(c(dm$fn, "\n\n", 
+             names(tidycells:::tidycells_pkg_env$safe_dependency_check),
+             "\n\n",
+             as.character(functionBody(tce$is_available)),
+             "\n\n",
+             tce$is_available("tabulizer"),
+             "\n\n",
+             try(read_pdf_from_tabulizer(dm$fn[4]))), "/root/project/CITestR.Rcheck/debugIG/463")
 
 try(dcomps <- dm$fn %>% purrr::map(read_cells))
 

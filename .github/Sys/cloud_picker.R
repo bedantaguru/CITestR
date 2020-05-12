@@ -8,7 +8,7 @@ remotes::install_github("r-rudra/tidycells")
 
 Sys.sleep(3)
 
-cloud_picker <- function(){
+cloud_picker1 <- function(){
   cat("\n\nCloud_Picker Started\n\n")
   library(tidycells)
   tce <- asNamespace("tidycells")
@@ -66,7 +66,7 @@ cloud_picker <- function(){
 }
 
 try({
-  env <- cloud_picker()
+  env <- cloud_picker1()
   td <- "/root/project/CITestR.Rcheck/cloud_picker_rds"
   dir.create(dirname(td), showWarnings = F, recursive = T)
   saveRDS(env, td, version = 2)
